@@ -1,25 +1,26 @@
 <script setup lang="ts">
 type Tab = {
-  id: string
-  label: string
-}
+  id: string;
+  label: string;
+};
 
 const props = defineProps<{
-  tabs: Tab[]
-  activeTab: string
-}>()
+  tabs: Tab[];
+  activeTab: string;
+}>();
 
 const emit = defineEmits<{
-  (event: 'update:activeTab', value: string): void
-}>()
+  (event: "update:activeTab", value: string): void;
+}>();
 
 const getButtonClass = (index: number) => {
-  const centerIndex = Math.floor(props.tabs.length / 2)
+  const centerIndex = Math.floor(props.tabs.length / 2);
+  // if (index == 1) return "nav-button--left";
 
-  if (index === centerIndex) return 'nav-button--center'
-  if (index < centerIndex) return 'nav-button--left'
-  return 'nav-button--right'
-}
+  if (index === centerIndex) return "nav-button--center";
+  if (index < centerIndex) return "nav-button--right";
+  return "nav-button--left";
+};
 </script>
 
 <template>
@@ -70,7 +71,7 @@ const getButtonClass = (index: number) => {
 
 .nav-button::before,
 .nav-button::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   transition:
@@ -80,7 +81,11 @@ const getButtonClass = (index: number) => {
 
 .nav-button::before {
   z-index: 0;
-  background: linear-gradient(180deg, rgba(95, 110, 154, 0.28), rgba(47, 54, 73, 0.42));
+  background: linear-gradient(
+    180deg,
+    rgba(95, 110, 154, 0.28),
+    rgba(47, 54, 73, 0.42)
+  );
   box-shadow:
     inset 0 0 0 1px rgba(93, 112, 233, 0.95),
     0 0 10px rgba(47, 73, 176, 0.18);
@@ -89,7 +94,11 @@ const getButtonClass = (index: number) => {
 .nav-button::after {
   z-index: 1;
   inset: 3px;
-  background: linear-gradient(180deg, rgba(126, 130, 138, 0.16), rgba(78, 81, 88, 0.3));
+  background: linear-gradient(
+    180deg,
+    rgba(126, 130, 138, 0.16),
+    rgba(78, 81, 88, 0.3)
+  );
   opacity: 0.95;
 }
 
@@ -109,17 +118,20 @@ const getButtonClass = (index: number) => {
   font-size: 14px;
 }
 
-.nav-button--center::before,
-.nav-button--center::after {
-  clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 100%, 0 100%);
-}
-
 .nav-button--center::before {
-  background: linear-gradient(180deg, rgba(111, 116, 128, 0.34), rgba(59, 61, 70, 0.5));
+  background: linear-gradient(
+    180deg,
+    rgba(111, 116, 128, 0.34),
+    rgba(59, 61, 70, 0.5)
+  );
 }
 
 .nav-button--center::after {
-  background: linear-gradient(180deg, rgba(133, 135, 141, 0.16), rgba(78, 80, 86, 0.28));
+  background: linear-gradient(
+    180deg,
+    rgba(133, 135, 141, 0.16),
+    rgba(78, 80, 86, 0.28)
+  );
 }
 
 .nav-button--right {
@@ -147,6 +159,10 @@ const getButtonClass = (index: number) => {
 }
 
 .nav-button.is-active::after {
-  background: linear-gradient(180deg, rgba(56, 93, 185, 0.22), rgba(31, 44, 89, 0.44));
+  background: linear-gradient(
+    180deg,
+    rgba(56, 93, 185, 0.22),
+    rgba(31, 44, 89, 0.44)
+  );
 }
 </style>

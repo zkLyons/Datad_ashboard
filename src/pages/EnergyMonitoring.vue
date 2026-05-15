@@ -50,13 +50,13 @@ const plantCards: PlantCard[] = Array.from({ length: 4 }, (_, index) => ({
 }));
 
 const voltageBars = [
-  { label: "7", value: 328 },
-  { label: "6", value: 146 },
-  { label: "5", value: 126 },
-  { label: "4", value: 84 },
-  { label: "3", value: 42 },
-  { label: "2", value: 146 },
   { label: "1", value: 122 },
+  { label: "2", value: 146 },
+  { label: "3", value: 42 },
+  { label: "4", value: 84 },
+  { label: "5", value: 126 },
+  { label: "6", value: 146 },
+  { label: "7", value: 328 },
 ];
 
 const currentLabels = [

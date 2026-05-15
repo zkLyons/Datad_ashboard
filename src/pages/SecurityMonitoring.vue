@@ -12,6 +12,9 @@ import type { PieSeriesOption } from "echarts/charts";
 import { CanvasRenderer } from "echarts/renderers";
 import SectionPanel from "../components/SectionPanel.vue";
 import overviewIcon from "../assets/png/img/title.png";
+import faceIcon from "../assets/png/img/人.png";
+import controlIcon from "../assets/png/img/控制中心.png";
+import warningIcon from "../assets/png/img/警告.png";
 import videoDemo from "../assets/png/img/videoDemo.mp4";
 
 use([PieChart, GraphicComponent, TooltipComponent, CanvasRenderer]);
@@ -21,9 +24,9 @@ type SecurityChartOption = ComposeOption<
 >;
 
 const cameraStats = [
-  { label: "人脸识别摄像头", value: "8" },
-  { label: "可控制摄像头", value: "20" },
-  { label: "故障摄像头", value: "2" },
+  { label: "人脸识别摄像头", value: "8", icon: faceIcon },
+  { label: "可控制摄像头", value: "20", icon: controlIcon },
+  { label: "故障摄像头", value: "2", icon: warningIcon },
 ];
 
 const coverageMetrics = [
@@ -43,6 +46,7 @@ const alarms = [
 const cameraFeeds = [
   { title: "星光广场云台", source: videoDemo, poster: "", muted: true },
   { title: "底商北侧", source: videoDemo, poster: "", muted: true },
+
   { title: "后山艺术空间", source: videoDemo, poster: "", muted: true },
   { title: "T9后面", source: videoDemo, poster: "", muted: true },
   { title: "门口", source: videoDemo, poster: "", muted: true },
@@ -162,7 +166,10 @@ onBeforeUnmount(() => {
               :key="item.label"
               class="security-overview__card"
             >
-              <span>{{ item.label }}</span>
+              <span class="security-overview__card-label">
+                <img :src="item.icon" alt="" class="security-overview__card-icon" />
+                <span>{{ item.label }}</span>
+              </span>
               <strong>{{ item.value }}</strong>
             </article>
           </div>
@@ -352,7 +359,13 @@ onBeforeUnmount(() => {
 }
 
 .security-overview__summary {
-  min-width: 0;
+  /* min-width: 0; */
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-color: red; */
 }
 
 .security-overview__label {
@@ -379,9 +392,12 @@ onBeforeUnmount(() => {
   text-align: center;
 }
 
-.security-overview__card span {
-  display: block;
-  padding: 4px 0;
+.security-overview__card-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 4px 6px;
   margin-bottom: 6px;
   color: #ffffff;
   font-size: 12px;
@@ -392,6 +408,17 @@ onBeforeUnmount(() => {
     rgba(18, 138, 204, 0.95),
     rgba(109, 85, 213, 0.95)
   );
+}
+
+.security-overview__card-label span {
+  display: block;
+}
+
+.security-overview__card-icon {
+  width: 12px;
+  height: 12px;
+  flex: 0 0 auto;
+  object-fit: contain;
 }
 
 .security-overview__card strong {
@@ -469,7 +496,8 @@ onBeforeUnmount(() => {
 .coverage-panel__track {
   width: 100%;
   height: 15px;
-  background: rgba(28, 56, 74, 0.86);
+  overflow: hidden;
+  background: transparent;
 }
 
 .coverage-panel__fill {

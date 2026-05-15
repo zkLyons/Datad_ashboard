@@ -63,7 +63,10 @@ const updateShellScale = () => {
   const designRatio = DESIGN_WIDTH / DESIGN_HEIGHT;
   const viewportRatio = clientWidth / clientHeight;
 
-  let nextScale = Math.min(clientWidth / DESIGN_WIDTH, clientHeight / DESIGN_HEIGHT);
+  let nextScale = Math.min(
+    clientWidth / DESIGN_WIDTH,
+    clientHeight / DESIGN_HEIGHT,
+  );
   let nextStageWidth = DESIGN_WIDTH;
 
   // Wider-than-design screens should keep the full 1080-height layout visible
@@ -74,7 +77,9 @@ const updateShellScale = () => {
   }
 
   shellScale.value = isPositiveFinite(nextScale) ? nextScale : 1;
-  stageWidth.value = isPositiveFinite(nextStageWidth) ? nextStageWidth : DESIGN_WIDTH;
+  stageWidth.value = isPositiveFinite(nextStageWidth)
+    ? nextStageWidth
+    : DESIGN_WIDTH;
 };
 
 onMounted(() => {
@@ -158,30 +163,14 @@ onBeforeUnmount(() => {
 .dashboard-shell__overlay {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(
-      ellipse 48% 36% at 50% 44%,
-      rgba(255, 255, 255, 0.14) 0%,
-      rgba(255, 255, 255, 0.06) 26%,
-      rgba(10, 20, 42, 0.1) 50%,
-      rgba(5, 12, 28, 0.42) 74%,
-      rgba(2, 6, 16, 0.8) 100%
-    ),
-    linear-gradient(
-      90deg,
-      rgba(4, 13, 30, 0.84) 0,
-      rgba(4, 13, 30, 0.35) 22%,
-      rgba(4, 13, 30, 0.12) 50%,
-      rgba(4, 13, 30, 0.35) 78%,
-      rgba(4, 13, 30, 0.84) 100%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(1, 6, 17, 0.6),
-      rgba(1, 6, 17, 0.14) 14%,
-      rgba(1, 6, 17, 0.1) 76%,
-      rgba(1, 6, 17, 0.82)
-    );
+  background: radial-gradient(
+    ellipse 48% 36% at 50% 44%,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.06) 26%,
+    rgba(10, 20, 42, 0.1) 50%,
+    rgba(5, 12, 28, 0.42) 74%,
+    rgba(2, 6, 16, 0.8) 100%
+  );
   pointer-events: none;
 }
 

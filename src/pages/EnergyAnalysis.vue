@@ -77,10 +77,10 @@ const costShareSegments = [
 ];
 
 const energyAnalysisRows = [
-  { label: "初始", balance: 88, lowCarbon: 46 },
-  { label: "最高", balance: 48, lowCarbon: 68 },
-  { label: "最低", balance: 150, lowCarbon: 96 },
   { label: "当前", balance: 132, lowCarbon: 102 },
+  { label: "最低", balance: 150, lowCarbon: 96 },
+  { label: "最高", balance: 48, lowCarbon: 68 },
+  { label: "初始", balance: 88, lowCarbon: 46 },
 ];
 
 const summaryStats = [
@@ -653,6 +653,9 @@ onBeforeUnmount(() => {
         title="系统能效统计"
         class="analysis-panel analysis-panel--trend"
       >
+        <div class="panel-unit panel-unit--left" style="margin-left: 30px">
+          位数/时
+        </div>
         <div class="panel-unit panel-unit--right">单位：千/kw.h</div>
         <div ref="trendChartRef" class="analysis-chart"></div>
       </SectionPanel>
@@ -752,7 +755,7 @@ onBeforeUnmount(() => {
 }
 
 .panel-unit {
-  margin: -4px 0 2px 4px;
+  margin: -4px 0 0px 4px;
   color: #4f91ff;
   font-size: 14px;
 }
@@ -760,6 +763,10 @@ onBeforeUnmount(() => {
 .panel-unit--right {
   margin-left: auto;
   margin-right: 2px;
+}
+.panel-unit--left {
+  margin-right: auto;
+  margin-left: 2px;
 }
 
 .analysis-chart {
@@ -862,7 +869,7 @@ onBeforeUnmount(() => {
 .metric-progress__track {
   width: 100%;
   height: 18px;
-  background: rgba(30, 102, 124, 0.2);
+  background: transparent;
 }
 
 .metric-progress__fill {
@@ -1033,31 +1040,13 @@ onBeforeUnmount(() => {
   overflow-x: hidden;
   padding-right: 8px;
   padding-bottom: 4px;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(87, 204, 255, 0.95) rgba(35, 82, 141, 0.28);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .data-table__scroll::-webkit-scrollbar {
-  width: 6px;
-}
-
-.data-table__scroll::-webkit-scrollbar-track {
-  background: linear-gradient(
-    180deg,
-    rgba(16, 47, 88, 0.14),
-    rgba(55, 132, 229, 0.3)
-  );
-  border-radius: 999px;
-}
-
-.data-table__scroll::-webkit-scrollbar-thumb {
-  background: linear-gradient(
-    180deg,
-    rgba(98, 225, 255, 0.95),
-    rgba(72, 111, 255, 0.95)
-  );
-  border-radius: 999px;
-  box-shadow: 0 0 10px rgba(90, 182, 255, 0.55);
+  width: 0;
+  height: 0;
 }
 
 .data-table__body {

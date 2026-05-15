@@ -66,11 +66,15 @@ const alarms = [
   { name: "监控7：大西门云台", time: "07:12:18", status: "待派遣" },
   { name: "监控8：A楼南侧", time: "07:13:12", status: "处理中" },
   { name: "监控9：T9北侧", time: "08:12:18", status: "已消警" },
+  { name: "监控6：T9北侧", time: "08:12:18", status: "已消警" },
+  { name: "监控7：大西门云台", time: "07:12:18", status: "待派遣" },
+  { name: "监控8：A楼南侧", time: "07:13:12", status: "处理中" },
+  { name: "监控9：T9北侧", time: "08:12:18", status: "已消警" },
 ];
 
 const visitorBars = [
-  { label: "6-27", value: 0, color: "#3959aa" },
-  { label: "6-28", value: 0, color: "#39d5cd" },
+  { label: "6-27", value: 25, color: "#3959aa" },
+  { label: "6-28", value: 70, color: "#39d5cd" },
   { label: "6-29", value: 160, color: "#628ff1" },
   { label: "6-27", value: 290, color: "#39d5cd" },
   { label: "6-27", value: 345, color: "#628ff1" },
@@ -345,7 +349,7 @@ onBeforeUnmount(() => {
                 <strong>12530</strong>
               </div>
               <div class="overview__blacklist">
-                <p class="overview__label">黑名单</p>
+                <p class="overview__label black">黑名单</p>
                 <strong>25</strong>
               </div>
             </div>
@@ -435,7 +439,9 @@ onBeforeUnmount(() => {
       <SectionPanel title="报警数据" class="baojing">
         <div class="line-chart">
           <div class="line-chart__header">
-            <span>近一月报警次数</span>
+            <span style="color: #4b91ff; margin-left: 30px; font-size: 10px"
+              >近一月报警次数</span
+            >
             <span>单位：次数/天</span>
           </div>
           <div ref="alertChartRef" class="line-chart__chart"></div>
@@ -492,9 +498,9 @@ onBeforeUnmount(() => {
 
 .overview {
   display: grid;
-  grid-template-columns: 116px minmax(0, 1fr) 116px;
-  row-gap: 12px;
-  column-gap: 12px;
+  grid-template-columns: 100px minmax(0, 1fr) 100px;
+  row-gap: 10px;
+  column-gap: 1px;
   align-items: start;
 }
 
@@ -523,10 +529,16 @@ onBeforeUnmount(() => {
   color: #79a5ff;
   font-size: 12px;
   line-height: 1;
+  /* background-color: red; */
+}
+.black {
+  padding: 4px;
+  padding-bottom: 2px;
+  background-color: #202230;
 }
 
 .overview strong {
-  color: #e6f0ff;
+  color: #9dceff;
   font-size: 17px;
   font-weight: 500;
 }
@@ -591,7 +603,7 @@ onBeforeUnmount(() => {
 
 .alarm-panel {
   flex: 1;
-  min-height: 600px;
+  height: 200px;
 }
 
 .alarm-list {
@@ -602,26 +614,13 @@ onBeforeUnmount(() => {
   min-height: 0;
   overflow-y: auto;
   padding-right: 8px;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(91, 232, 255, 0.92) rgba(255, 255, 255, 0.1);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .alarm-list::-webkit-scrollbar {
-  width: 6px;
-}
-
-.alarm-list::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 999px;
-}
-
-.alarm-list::-webkit-scrollbar-thumb {
-  border-radius: 999px;
-  background: linear-gradient(
-    180deg,
-    rgba(83, 233, 255, 0.95),
-    rgba(61, 117, 255, 0.95)
-  );
+  width: 0;
+  height: 0;
 }
 
 .alarm-item {
@@ -744,6 +743,7 @@ onBeforeUnmount(() => {
 }
 
 .bar-chart__header {
+  margin-left: 30px;
   margin-bottom: 8px;
   color: #4b91ff;
   font-size: 13px;

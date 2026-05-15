@@ -415,7 +415,7 @@ onBeforeUnmount(() => {
               class="overview-stat"
             >
               <span>{{ item.label }}</span>
-              <strong>{{ item.value }}</strong>
+              <strong style="color: #4b91ff">{{ item.value }}</strong>
             </article>
           </div>
         </div>
@@ -550,7 +550,9 @@ onBeforeUnmount(() => {
             </div>
           </div>
           <div class="unit-panel__meta">
-            <div class="unit-panel__station">{{ currentUnitSlide.station }}</div>
+            <div class="unit-panel__station">
+              {{ currentUnitSlide.station }}
+            </div>
             <div class="unit-panel__state">
               <span>开启状态</span>
               <strong>{{ currentUnitSlide.startStatus }}</strong>
@@ -618,7 +620,9 @@ onBeforeUnmount(() => {
 }
 
 .unit-panel {
-  flex: 1;
+  /* flex: 1; */
+  height: 30%;
+  /* background-color: #17d3a8; */
   min-height: 0;
 }
 
@@ -835,7 +839,7 @@ onBeforeUnmount(() => {
 
 .comfort-panel__track {
   height: 16px;
-  background: rgba(31, 110, 134, 0.24);
+  background: transparent;
 }
 
 .comfort-panel__fill {

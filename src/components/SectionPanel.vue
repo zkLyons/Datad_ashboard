@@ -25,33 +25,12 @@ defineProps<{
   flex-direction: column;
   min-height: 0;
   height: 100%;
+  overflow: hidden;
 
-  background: linear-gradient(
-    180deg,
-    rgba(208, 210, 213, 0.01),
-    rgba(240, 241, 243, 0.1)
-  );
-
-  /* box-shadow:
-    inset 0 0 0 1px rgba(212, 214, 218, 0.02),
-    0 8px 16px rgba(0, 0, 0, 0.05); */
-}
-
-.section-panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  /* 伪元素高光同样降到极低，只留一丝光泽 */
-  background:
-    linear-gradient(
-      90deg,
-      rgba(89, 143, 255, 0.03),
-      transparent 28%,
-      transparent 72%,
-      rgba(89, 143, 255, 0.03)
-    ),
-    linear-gradient(180deg, rgba(160, 212, 255, 0.02), transparent 18%);
-  pointer-events: none;
+  box-shadow:
+    inset 0 1px 0 rgba(226, 243, 255, 0.1),
+    inset 0 0 28px rgba(86, 154, 255, 0.05),
+    0 12px 32px rgba(2, 8, 22, 0.12);
 }
 
 .section-panel__header {
