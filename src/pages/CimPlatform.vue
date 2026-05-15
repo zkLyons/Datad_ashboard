@@ -364,7 +364,7 @@ const startUnitAutoplay = () => {
 
   unitAutoplayTimer = window.setInterval(() => {
     advanceUnitSlide();
-  }, 4000);
+  }, 2000);
 };
 
 const handleResize = () => {
