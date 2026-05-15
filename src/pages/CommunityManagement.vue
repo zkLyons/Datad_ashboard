@@ -450,7 +450,7 @@ onBeforeUnmount(() => {
   height: 100%;
   min-height: 0;
   display: grid;
-  grid-template-columns: minmax(250px, 19.5%) minmax(0, 1fr) minmax(280px, 23%);
+  grid-template-columns: 360px minmax(0, 1fr) 360px;
   gap: 14px;
 }
 
@@ -466,6 +466,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
   min-height: 0;
   max-width: 360px;
+  width: 100%;
   justify-self: end;
 }
 
@@ -814,34 +815,5 @@ onBeforeUnmount(() => {
 .line-chart__chart {
   width: 100%;
   height: 190px;
-}
-
-@media (max-width: 1560px) {
-  .community-page {
-    grid-template-columns: minmax(230px, 19.5%) minmax(0, 1fr) minmax(
-        260px,
-        22%
-      );
-  }
-
-  .overview__total strong {
-    font-size: 24px;
-  }
-
-  .metric-card__content strong {
-    font-size: 30px;
-  }
-}
-
-@media (max-width: 1280px) {
-  .community-page {
-    grid-template-columns: 1fr;
-    height: auto;
-    overflow-y: auto;
-  }
-
-  .community-page__spacer {
-    display: none;
-  }
 }
 </style>

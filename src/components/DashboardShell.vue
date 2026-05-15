@@ -2,6 +2,9 @@
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import BottomNav from "./BottomNav.vue";
 
+const DESIGN_WIDTH = 1920;
+const DESIGN_HEIGHT = 1080;
+
 type Tab = {
   id: string;
   label: string;
@@ -17,6 +20,9 @@ const emit = defineEmits<{
 }>();
 
 const now = ref(new Date());
+const shellRef = ref<HTMLElement | null>(null);
+const shellScale = ref(1);
+const stageWidth = ref(DESIGN_WIDTH);
 let timer: number | undefined;
 
 const weekdays = [
@@ -41,52 +47,112 @@ const rightClock = computed(() => {
   return `${weekdays[date.getDay()]}  ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}  |  ${date.getFullYear()}/${pad(date.getMonth() + 1)}/${pad(date.getDate())}`;
 });
 
+const isPositiveFinite = (value: number) => Number.isFinite(value) && value > 0;
+
+const stageStyle = computed(() => ({
+  width: `${stageWidth.value}px`,
+  transform: `translate(-50%, -50%) scale(${shellScale.value})`,
+}));
+
+const updateShellScale = () => {
+  if (!shellRef.value) {
+    return;
+  }
+
+  const { clientWidth, clientHeight } = shellRef.value;
+  const designRatio = DESIGN_WIDTH / DESIGN_HEIGHT;
+  const viewportRatio = clientWidth / clientHeight;
+
+  let nextScale = Math.min(clientWidth / DESIGN_WIDTH, clientHeight / DESIGN_HEIGHT);
+  let nextStageWidth = DESIGN_WIDTH;
+
+  // Wider-than-design screens should keep the full 1080-height layout visible
+  // and let the middle canvas grow horizontally, instead of leaving side gutters.
+  if (viewportRatio > designRatio) {
+    nextScale = clientHeight / DESIGN_HEIGHT;
+    nextStageWidth = clientWidth / nextScale;
+  }
+
+  shellScale.value = isPositiveFinite(nextScale) ? nextScale : 1;
+  stageWidth.value = isPositiveFinite(nextStageWidth) ? nextStageWidth : DESIGN_WIDTH;
+};
+
 onMounted(() => {
   timer = window.setInterval(() => {
     now.value = new Date();
   }, 1000);
+
+  updateShellScale();
+  window.addEventListener("resize", updateShellScale);
 });
 
 onBeforeUnmount(() => {
   if (timer) {
     window.clearInterval(timer);
   }
+
+  window.removeEventListener("resize", updateShellScale);
 });
 </script>
 
 <template>
-  <div class="dashboard-shell">
-    <div class="dashboard-shell__overlay"></div>
-    <header class="dashboard-shell__header">
-      <div class="dashboard-shell__clock dashboard-shell__clock--left">
-        {{ leftClock }}
-      </div>
-      <div class="dashboard-shell__clock dashboard-shell__clock--right">
-        {{ rightClock }}
-      </div>
-    </header>
+  <div ref="shellRef" class="dashboard-shell">
+    <div class="dashboard-shell__backdrop"></div>
 
-    <main class="dashboard-shell__content">
-      <slot />
-    </main>
+    <div class="dashboard-shell__stage" :style="stageStyle">
+      <div class="dashboard-shell__overlay"></div>
+      <header class="dashboard-shell__header">
+        <div class="dashboard-shell__clock dashboard-shell__clock--left">
+          {{ leftClock }}
+        </div>
+        <div class="dashboard-shell__clock dashboard-shell__clock--right">
+          {{ rightClock }}
+        </div>
+      </header>
 
-    <footer class="dashboard-shell__footer">
-      <BottomNav
-        :tabs="props.tabs"
-        :active-tab="props.activeTab"
-        @update:active-tab="emit('update:activeTab', $event)"
-      />
-      <div class="dashboard-shell__chevron"></div>
-    </footer>
+      <main class="dashboard-shell__content">
+        <slot />
+      </main>
+
+      <footer class="dashboard-shell__footer">
+        <BottomNav
+          :tabs="props.tabs"
+          :active-tab="props.activeTab"
+          @update:active-tab="emit('update:activeTab', $event)"
+        />
+        <div class="dashboard-shell__chevron"></div>
+      </footer>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .dashboard-shell {
   position: relative;
-  min-height: 100vh;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #061126;
+}
+
+.dashboard-shell__backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(1, 6, 17, 0.82), rgba(1, 6, 17, 0.9)),
+    url("../assets/main.jpg") center/cover no-repeat;
+  transform: scale(1.04);
+}
+
+.dashboard-shell__stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 1080px;
+  transform-origin: center center;
   overflow: hidden;
   background: url("../assets/main.jpg") center/cover no-repeat;
+  box-shadow: 0 0 48px rgba(0, 0, 0, 0.35);
 }
 
 .dashboard-shell__overlay {
@@ -143,7 +209,7 @@ onBeforeUnmount(() => {
 }
 
 .dashboard-shell__content {
-  height: calc(100vh - 42px);
+  height: calc(100% - 42px);
   padding: 12px 22px 92px;
   box-sizing: border-box;
   overflow: hidden;
@@ -186,16 +252,5 @@ onBeforeUnmount(() => {
   right: 0;
   transform: rotate(-35deg);
   transform-origin: right center;
-}
-
-@media (max-width: 1200px) {
-  .dashboard-shell__header {
-    padding: 10px 16px 0;
-    font-size: 12px;
-  }
-
-  .dashboard-shell__content {
-    padding: 12px 14px 92px;
-  }
 }
 </style>

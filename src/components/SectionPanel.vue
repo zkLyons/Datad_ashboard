@@ -26,19 +26,15 @@ defineProps<{
   min-height: 0;
   height: 100%;
 
-  /* 边框稍微保留一点，以免卡片完全融入背景失去轮廓 */
-
-  /* 核心修改 1：极限压低背景颜色透明度，几乎全透 */
   background: linear-gradient(
     180deg,
-    rgba(9, 21, 51, 0.01),
-    /* 顶部几乎完全透明 (0.02) */ rgba(232, 235, 240, 0.1)
-      /* 底部保留极少的暗色压底 (0.1) */
+    rgba(208, 210, 213, 0.01),
+    rgba(240, 241, 243, 0.1)
   );
 
-  box-shadow:
+  /* box-shadow:
     inset 0 0 0 1px rgba(212, 214, 218, 0.02),
-    0 8px 16px rgba(0, 0, 0, 0.05);
+    0 8px 16px rgba(0, 0, 0, 0.05); */
 }
 
 .section-panel::before {

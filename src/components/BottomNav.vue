@@ -149,27 +149,4 @@ const getButtonClass = (index: number) => {
 .nav-button.is-active::after {
   background: linear-gradient(180deg, rgba(56, 93, 185, 0.22), rgba(31, 44, 89, 0.44));
 }
-
-@media (max-width: 1200px) {
-  .bottom-nav {
-    gap: 8px;
-  }
-
-  .nav-button {
-    height: 34px;
-    padding: 0 18px;
-    font-size: 12px;
-  }
-
-  .nav-button--left,
-  .nav-button--right {
-    min-width: 92px;
-  }
-
-  .nav-button--center {
-    min-width: 108px;
-    height: 38px;
-    font-size: 13px;
-  }
-}
 </style>
