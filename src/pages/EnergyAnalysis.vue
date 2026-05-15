@@ -722,6 +722,7 @@ onBeforeUnmount(() => {
 
 .analysis-panel {
   min-height: 0;
+  /* background-color: red; */
 }
 
 .analysis-panel--efficiency {
@@ -752,6 +753,8 @@ onBeforeUnmount(() => {
 .analysis-panel--table {
   flex: 1;
   min-height: 0;
+  /* background-color: red; */
+  /* width: 120%; */
 }
 
 .panel-unit {
@@ -1007,7 +1010,7 @@ onBeforeUnmount(() => {
 .data-table {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
   min-height: 0;
   height: 100%;
   padding-top: 2px;
@@ -1017,10 +1020,10 @@ onBeforeUnmount(() => {
 .data-table__row {
   display: grid;
   grid-template-columns:
-    minmax(0, 1.45fr) minmax(0, 1.12fr) minmax(0, 1.12fr)
+    minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.12fr)
     minmax(0, 0.8fr) minmax(0, 0.8fr);
   align-items: center;
-  column-gap: 10px;
+  column-gap: 5px;
 }
 
 .data-table__header {
